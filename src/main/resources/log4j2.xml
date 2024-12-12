@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Properties>
-        <Property name="log-path">logs</Property>
+        <Property name="log-path">C:/Users/Java/Desktop/java</Property>
     </Properties>
     <Appenders>
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
@@ -22,4 +22,57 @@
             <AppenderRef ref="FileAppender"/>
         </Root>
     </Loggers>
+
+<!--    Logging to a Database-->
+    <Appenders>
+        <JDBC name="DatabaseAppender" tableName="logs">
+            <ConnectionFactory class="org.apache.commons.dbcp2.BasicDataSource">
+                <Param name="url" value="jdbc:mysql://localhost:3306/logging"/>
+                <Param name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+                <Param name="username" value="your-db-username"/>
+                <Param name="password" value="your-db-password"/>
+            </ConnectionFactory>
+            <Column name="timestamp" pattern="%d{yyyy-MM-dd HH:mm:ss}"/>
+            <Column name="log_level" pattern="%level"/>
+            <Column name="logger" pattern="%logger"/>
+            <Column name="message" pattern="%msg"/>
+            <Column name="thread_name" pattern="%thread"/>
+        </JDBC>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="DatabaseAppender"/>
+        </Root>
+    </Loggers>
+
+<!--    Logging to a Remote Server-->
+    <Appenders>
+        <Socket name="SocketAppender" host="remote-server.com" port="5000">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+        </Socket>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="SocketAppender"/>
+        </Root>
+    </Loggers>
+
+<!--    Logging to Cloud Logging Services-->
+    <Appenders>
+        <CloudWatch name="CloudWatchAppender" logGroup="MyAppLogGroup" logStream="MyAppLogStream">
+            <Region>us-west-2</Region>
+            <AWSAccessKeyId>your-access-key</AWSAccessKeyId>
+            <AWSSecretKey>your-secret-key</AWSSecretKey>
+        </CloudWatch>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="CloudWatchAppender"/>
+        </Root>
+    </Loggers>
+
+
 </Configuration>
