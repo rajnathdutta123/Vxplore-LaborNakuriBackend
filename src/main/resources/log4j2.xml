@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration packages="com.app.LaborNakuriBackend.config">
     <Properties>
         <Property name="log-path">C:/Users/Java/Desktop/java</Property>
     </Properties>
     <Appenders>
-<!--        <Console name="ConsoleAppender" target="SYSTEM_OUT">-->
-<!--            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>-->
-<!--        </Console>-->
-        <CustomAppender name="CustomConsoleAppender" >
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
-        </CustomAppender>
+        </Console>
+<!--        <CustomAppender name="CustomConsoleAppender" >-->
+<!--            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>-->
+<!--        </CustomAppender>-->
 
+        <MapAppender name="abc1" />
+<!--        <ExceptionAppender name="exceptionAppender" />-->
         <RollingFile name="FileAppender" fileName="${log-path}/app.log"
                      filePattern="${log-path}/app-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
@@ -22,8 +24,20 @@
     </Appenders>
     <Loggers>
         <Root level="info">
-            <AppenderRef ref="CustomConsoleAppender"/>
+            <AppenderRef ref="abc1" />
+<!--            <AppenderRef ref="exceptionAppender" />-->
+            <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="FileAppender"/>
         </Root>
     </Loggers>
 </Configuration>
+
+<!--        %d{yyyy-MM-dd HH:mm:ss}:Logs the date and time of the log event in the specified format (yyyy-MM-dd HH:mm:ss).-->
+<!--        [%t]:Logs the name of the thread in which the log event was generated.-->
+<!--        %-5level:Logs the log level (e.g., INFO, ERROR) with left alignment and a fixed width of 5 characters.-->
+<!--        %logger{36}:Logs the logger name, typically the fully qualified class name that generated the log event, truncated to 36 characters (to avoid excessively long lines).-->
+<!--        %F:Logs the file name where the log event was generated. This will be the name of the file, not the full path. Example: Main.java-->
+<!--        %L:Logs the line number in the file where the log event occurred. Example: 42-->
+<!--        %M:Logs the method name where the log event was generated. Example: main (or whatever method is generating the log).-->
+<!--        - %msg: Logs the log message (the actual content of the log).-->
+<!--        %n:Inserts a newline character to separate the log entries.-->
