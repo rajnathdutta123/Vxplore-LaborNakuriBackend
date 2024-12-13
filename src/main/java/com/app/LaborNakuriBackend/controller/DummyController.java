@@ -20,4 +20,19 @@ public class DummyController {
         logger.error("Error level log example");
         return ResponseEntity.ok("hello");
     }
+    @GetMapping("/hi")
+    public ResponseEntity<String> newTest() {
+        return ResponseEntity.ok("Hi");
+    }
+    @GetMapping("/test")
+    public String testEndpoint() {
+        // Simulate some work by adding a delay
+        try {
+            Thread.sleep(5000); // Simulate some delay
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        return "Hello from the API!";
+    }
 }
