@@ -1,16 +1,14 @@
 package com.app.LaborNakuriBackend.controller;
 
-import com.app.LaborNakuriBackend.config.MapAppender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.LogEvent;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
 @RestController
+@RequestMapping("/api")
 public class DummyController {
 
     private static final Logger logger = LogManager.getLogger(DummyController.class);
