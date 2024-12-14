@@ -27,6 +27,6 @@ public class MapAppender extends AbstractAppender {
 
     @Override
     public void append(LogEvent event) {
-        System.out.println("Appending event: " + event.getMessage().getFormattedMessage());
+        //System.out.println("Appending event: " + event.getMessage().getFormattedMessage());
     }
 }

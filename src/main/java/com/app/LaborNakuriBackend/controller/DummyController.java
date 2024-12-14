@@ -28,11 +28,13 @@ public class DummyController {
     public ResponseEntity<String> dummy() {
         return ResponseEntity.ok("Dummy API");
     }
+
+
     @GetMapping("/test")
     public String testEndpoint() {
         // Simulate some work by adding a delay
         try {
-            Thread.sleep(5000); // Simulate some delay
+            Thread.sleep(15000); // Simulate some delay
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

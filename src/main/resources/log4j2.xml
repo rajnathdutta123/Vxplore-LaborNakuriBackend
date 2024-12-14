@@ -8,7 +8,7 @@
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <MapAppender name="abc1" />
+<!--        <MapAppender name="abc1" />-->
 <!--        <ExceptionAppender name="exceptionAppender" />-->
         <RollingFile name="FileAppender" fileName="${log-path}/app.log"
                      filePattern="${log-path}/app-%d{yyyy-MM-dd}-%i.log">
@@ -21,7 +21,7 @@
     </Appenders>
     <Loggers>
         <Root level="info">
-            <AppenderRef ref="abc1" />
+<!--            <AppenderRef ref="abc1" />-->
 <!--            <AppenderRef ref="exceptionAppender" />-->
             <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="FileAppender"/>
