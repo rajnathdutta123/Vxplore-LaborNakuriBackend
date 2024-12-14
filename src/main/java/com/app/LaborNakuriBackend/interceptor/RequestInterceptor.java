@@ -5,6 +5,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,22 +37,24 @@ public class RequestInterceptor implements HandlerInterceptor {
         // Retrieve the request ID and start time from the request
         String requestId = (String) request.getAttribute("requestId");
         Instant startTime = (Instant) request.getAttribute("startTime");
-
+        ZonedDateTime indiaTime = startTime.atZone(ZoneId.of("Asia/Kolkata"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String requestStartTime = indiaTime.format(formatter);
         if (requestId == null || startTime == null) {
             // Log a warning if these attributes are missing
             System.out.println("Warning: Missing request tracking attributes.");
             return;
         }
-        System.out.println("startTime"+startTime);
 
         // Calculate the processing time
         Instant endTime = Instant.now();
         long processingTime = endTime.toEpochMilli() - startTime.toEpochMilli();
-        System.out.println("endTime"+endTime);
+
 
         // Build the log buffer
         StringBuilder logBuffer = new StringBuilder();
         logBuffer.append("[Request ID: ").append(requestId).append("] Request received:\n");
+        logBuffer.append("[Request ID: ").append(requestId).append("] Start Time: ").append(requestStartTime).append("\n");
         logBuffer.append("[Request ID: ").append(requestId).append("] Method: ").append(request.getMethod()).append("\n");
         logBuffer.append("[Request ID: ").append(requestId).append("] URI: ").append(request.getRequestURI()).append("\n");
 

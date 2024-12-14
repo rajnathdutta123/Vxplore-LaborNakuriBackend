@@ -22,7 +22,7 @@ public class DummyController {
     }
     @GetMapping("/hi")
     public ResponseEntity<String> newTest() {
-        return ResponseEntity.ok("Hi");
+        return ResponseEntity.ok("Hiiiiiii");
     }
     @GetMapping("/test")
     public String testEndpoint() {
