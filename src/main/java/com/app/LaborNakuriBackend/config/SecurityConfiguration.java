@@ -34,7 +34,6 @@ public class SecurityConfiguration {
         http.csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-
                         .anyRequest().authenticated() // Protect all other endpoints
                 )
                 .sessionManagement(sess -> sess
@@ -44,22 +43,6 @@ public class SecurityConfiguration {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-
-//        http
-//                .csrf(csrf -> csrf.disable())  // Disable CSRF protection
-//                .authorizeHttpRequests(authz ->
-//                        authz
-//                                .requestMatchers("/auth/**").permitAll()  // Allow unauthenticated access to /auth/**
-//                                .anyRequest().authenticated()  // Require authentication for all other requests
-//                )
-//                .sessionManagement(sessionManagement ->
-//                        sessionManagement
-//                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // Use stateless session management
-//                )
-//                .authenticationProvider(authenticationProvider)
-//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//        return http.build();
     }
 
     @Bean

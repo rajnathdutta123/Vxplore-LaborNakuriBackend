@@ -1,17 +1,13 @@
 package com.app.LaborNakuriBackend.controller;
 
-import com.app.LaborNakuriBackend.dto.LoginResponse;
 import com.app.LaborNakuriBackend.dto.LoginUserDto;
 import com.app.LaborNakuriBackend.dto.RegisterUserDto;
 import com.app.LaborNakuriBackend.entity.User;
 import com.app.LaborNakuriBackend.service.AuthenticationService;
 import com.app.LaborNakuriBackend.service.JwtService;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
@@ -22,17 +18,15 @@ public class AuthenticationController {
     private final JwtService jwtService;
 
     private final AuthenticationService authenticationService;
-    private final UserDetailsService userDetailsService;
 
-    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService, UserDetailsService userDetailsService) {
+    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
-        this.userDetailsService = userDetailsService;
     }
 
     @GetMapping("/welcome")
     public ResponseEntity<String> welcome() {
-        return ResponseEntity.ok("Welcome this endpoint is not secure");
+        return ResponseEntity.ok("Welcome");
     }
 
     @PostMapping("/signup")
@@ -53,19 +47,9 @@ public class AuthenticationController {
                 .path("/")    // Available for the whole domain
                 .maxAge(Duration.ofHours(2))
                 .build();
-        //LoginResponse loginResponse = new LoginResponse(jwtToken,jwtService.getExpirationTime());
-        //return ResponseEntity.ok(jwtToken);
+
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .body("Login Successful");
-    }
-
-    @GetMapping("/secure")
-    public ResponseEntity<String> secureEndpoint(@CookieValue(name = "jwt", required = false) String token,@RequestParam String email) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
-        if (token == null || !jwtService.isTokenValid(token,userDetails)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-        }
-        return ResponseEntity.ok("This is a secure endpoint");
     }
 }

@@ -10,13 +10,13 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 public class RequestInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, 
+                            HttpServletResponse response, 
+                            Object handler) throws Exception {
         // Generate a unique request ID for tracking
         String requestId = UUID.randomUUID().toString();
 
@@ -33,7 +33,9 @@ public class RequestInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, 
+                                HttpServletResponse response, 
+                                Object handler, Exception ex) throws Exception {
         // Retrieve the request ID and start time from the request
         String requestId = (String) request.getAttribute("requestId");
         Instant startTime = (Instant) request.getAttribute("startTime");
@@ -53,21 +55,52 @@ public class RequestInterceptor implements HandlerInterceptor {
 
         // Build the log buffer
         StringBuilder logBuffer = new StringBuilder();
-        logBuffer.append("[Request ID: ").append(requestId).append("] Request received:\n");
-        logBuffer.append("[Request ID: ").append(requestId).append("] Start Time: ").append(requestStartTime).append("\n");
-        logBuffer.append("[Request ID: ").append(requestId).append("] Method: ").append(request.getMethod()).append("\n");
-        logBuffer.append("[Request ID: ").append(requestId).append("] URI: ").append(request.getRequestURI()).append("\n");
+        logBuffer.append("[Request ID: ")
+                .append(requestId)
+                .append("] Request received:\n");
+
+        logBuffer.append("[Request ID: ")
+                .append(requestId).append("] Start Time: ")
+                .append(requestStartTime)
+                .append("\n");
+
+        logBuffer.append("[Request ID: ")
+                .append(requestId)
+                .append("] Method: ")
+                .append(request.getMethod())
+                .append("\n");
+
+        logBuffer.append("[Request ID: ")
+                .append(requestId)
+                .append("] URI: ")
+                .append(request.getRequestURI())
+                .append("\n");
 
         // Add headers to the log buffer
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
-            logBuffer.append("[Request ID: ").append(requestId).append("] ").append(headerName).append(": ").append(request.getHeader(headerName)).append("\n");
+            logBuffer.append("[Request ID: ")
+                    .append(requestId)
+                    .append("] ")
+                    .append(headerName)
+                    .append(": ")
+                    .append(request.getHeader(headerName))
+                    .append("\n");
         }
 
         // Append response status and processing time
-        logBuffer.append("[Request ID: ").append(requestId).append("] Response Status: ").append(response.getStatus()).append("\n");
-        logBuffer.append("[Request ID: ").append(requestId).append("] Processing Time: ").append(processingTime).append(" ms\n");
+        logBuffer.append("[Request ID: ")
+                .append(requestId)
+                .append("] Response Status: ")
+                .append(response.getStatus())
+                .append("\n");
+
+        logBuffer.append("[Request ID: ")
+                .append(requestId)
+                .append("] Processing Time: ")
+                .append(processingTime)
+                .append(" ms\n");
 
         // Output the log
         System.out.println(logBuffer.toString());

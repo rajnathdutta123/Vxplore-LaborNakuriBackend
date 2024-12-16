@@ -10,23 +10,23 @@ import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 
-@Plugin(name = "MapAppender", category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
-public class MapAppender extends AbstractAppender {
+@Plugin(name = "CustomAppender", category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
+public class CustomAppender extends AbstractAppender {
 
 
-    protected MapAppender(String name, Filter filter) {
+    protected CustomAppender(String name, Filter filter) {
         super(name, filter, null);
     }
 
     @PluginFactory
-    public static MapAppender createAppender(
+    public static CustomAppender createAppender(
             @PluginAttribute("name") String name,
             @PluginElement("Filter") Filter filter) {
-        return new MapAppender(name, filter);
+        return new CustomAppender(name, filter);
     }
 
     @Override
     public void append(LogEvent event) {
-        //System.out.println("Appending event: " + event.getMessage().getFormattedMessage());
+        System.out.println("Appending event: " + event.getMessage().getFormattedMessage());
     }
 }

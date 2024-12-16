@@ -1,7 +1,5 @@
 package com.app.LaborNakuriBackend.dto;
 
-import lombok.Data;
-
 
 public class LoginUserDto {
     private String email;
