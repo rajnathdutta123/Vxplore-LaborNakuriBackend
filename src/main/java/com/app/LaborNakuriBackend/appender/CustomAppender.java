@@ -10,7 +10,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 
-@Plugin(name = "CustomAppender", category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
+@Plugin(name = "MapAppender", category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
 public class CustomAppender extends AbstractAppender {
 
 
@@ -27,6 +27,6 @@ public class CustomAppender extends AbstractAppender {
 
     @Override
     public void append(LogEvent event) {
-        System.out.println("Appending event: " + event.getMessage().getFormattedMessage());
+        //System.out.println("Appending event: " + event.getMessage().getFormattedMessage());
     }
 }

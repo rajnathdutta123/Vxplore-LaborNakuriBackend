@@ -1,5 +1,8 @@
 package com.app.LaborNakuriBackend.dto;
 
+
+
+
 public class RegisterUserDto {
     private String email;
 
@@ -7,7 +10,6 @@ public class RegisterUserDto {
 
     private String fullName;
 
-    
     public String getFullName() {
         return fullName;
     }

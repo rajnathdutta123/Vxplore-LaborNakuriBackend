@@ -28,6 +28,8 @@ public class DummyController {
     public ResponseEntity<String> dummy() {
         return ResponseEntity.ok("Dummy API");
     }
+
+
     @GetMapping("/test")
     public String testEndpoint() {
         // Simulate some work by adding a delay
