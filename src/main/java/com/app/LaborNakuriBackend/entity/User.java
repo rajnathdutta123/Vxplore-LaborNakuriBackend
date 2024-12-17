@@ -47,6 +47,15 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    // New constructor with all fields
+    public User(Integer id, String fullName, String email, String password, Date createdAt, Date updatedAt) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
     // Getters and Setters
 //    public String getFullName() {
 //        return fullName;
