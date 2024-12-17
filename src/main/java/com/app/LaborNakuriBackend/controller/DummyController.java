@@ -4,8 +4,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.web.csrf.CsrfToken;
 
 @RestController
 @RequestMapping("/api")
@@ -24,12 +26,15 @@ public class DummyController {
     public ResponseEntity<String> newTest() {
         return ResponseEntity.ok("Hiiiiiii");
     }
-    @GetMapping("/dummy")
+    @PostMapping("/dummy")
     public ResponseEntity<String> dummy() {
         return ResponseEntity.ok("Dummy API");
     }
-
-
+    @GetMapping("/csrf-token")
+    public CsrfToken csrfToken(CsrfToken csrfToken) {
+        return csrfToken;
+    }
+    
     @GetMapping("/test")
     public String testEndpoint() {
         // Simulate some work by adding a delay
